@@ -1,28 +1,25 @@
 import { Address, parseEther } from "viem";
 import AcpContractClient, { AcpJobPhases, MemoType } from "./acpContractClient";
+import { AcpAgent } from "../interfaces";
+import AcpJob from "./acpJob";
 
-type AcpAgent = {
-  id: number;
-  documentId: string;
-  name: string;
-  description: string;
-  walletAddress: Address;
-  isVirtualAgent: boolean;
-  profilePic: string;
-  category: string;
-  tokenAddress: string | null;
-  ownerAddress: string;
-  cluster: string | null;
-  twitterHandle: string;
-  offerings: { name: string; price: number }[];
-  symbol: string | null;
-  virtualAgentId: string | null;
-};
+interface IAcpClientOptions {
+  acpContractClient: AcpContractClient;
+  onNewTask?: (job: AcpJob) => void;
+  onEvaluate?: (job: AcpJob) => void;
+}
 
 class AcpClient {
   private acpUrl;
+  public acpContractClient: AcpContractClient;
+  private onNewTask?: (job: AcpJob) => void;
+  private onEvaluate?: (job: AcpJob) => void;
 
-  constructor(public acpContractClient: AcpContractClient) {
+  constructor(options: IAcpClientOptions) {
+    this.acpContractClient = options.acpContractClient;
+    this.onNewTask = options.onNewTask;
+    this.onEvaluate = options.onEvaluate;
+
     this.acpUrl = this.acpContractClient.config.acpUrl;
     this.init();
   }
