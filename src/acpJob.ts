@@ -8,19 +8,19 @@ class AcpJob {
     public id: number,
     public providerAddress: string,
     public memos: AcpMemo[],
-    public phase: string
+    public phase: AcpJobPhases
   ) {}
 
-  async pay(amount: number) {
+  async pay(amount: number, reason?: string) {
     const memo = this.memos.find(
-      (m) => m.nextPhase === AcpJobPhases.NEGOTIOATION
+      (m) => m.nextPhase === AcpJobPhases.TRANSACTION
     );
 
     if (!memo) {
       throw new Error("No transaction memo found");
     }
 
-    return await this.acpClient.payJob(this.id, amount);
+    return await this.acpClient.payJob(this.id, amount, memo.id, reason);
   }
 
   async respond(accept: boolean, reason?: string) {
@@ -32,12 +32,12 @@ class AcpJob {
       throw new Error("No negotiation memo found");
     }
 
-    return await this.acpClient.respondJob(memo.id, accept, reason);
+    return await this.acpClient.respondJob(this.id, memo.id, accept, reason);
   }
 
   async deliver(deliverable: string) {
     const memo = this.memos.find(
-      (m) => m.nextPhase === AcpJobPhases.TRANSACTION
+      (m) => m.nextPhase === AcpJobPhases.EVALUATION
     );
 
     if (!memo) {
