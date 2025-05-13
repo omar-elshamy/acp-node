@@ -1,9 +1,10 @@
 import { Address, parseEther } from "viem";
+import { io } from "socket.io-client";
 import AcpContractClient, { AcpJobPhases, MemoType } from "./acpContractClient";
 import { AcpAgent } from "../interfaces";
 import AcpJob from "./acpJob";
 import AcpMemo from "./acpMemo";
-import { io } from "socket.io-client";
+import AcpJobOffering from "./acpJobOffering";
 
 export interface IDeliverable {
   type: string;
@@ -176,7 +177,15 @@ class AcpClient {
         id: agent.id,
         name: agent.name,
         description: agent.description,
-        offerings: agent.offerings,
+        offerings: agent.offerings.map((offering) => {
+          return new AcpJobOffering(
+            this,
+            agent.walletAddress,
+            offering.name,
+            offering.price,
+            offering.schema
+          );
+        }),
         twitterHandle: agent.twitterHandle,
         walletAddress: agent.walletAddress,
       };
@@ -185,7 +194,7 @@ class AcpClient {
 
   async initiateJob(
     providerAddress: Address,
-    serviceRequirement: string,
+    serviceRequirement: Object | string,
     expiredAt: Date = new Date(Date.now() + 1000 * 60 * 60 * 24),
     evaluatorAddress?: Address
   ) {
@@ -197,7 +206,9 @@ class AcpClient {
 
     await this.acpContractClient.createMemo(
       jobId,
-      serviceRequirement,
+      typeof serviceRequirement === "string"
+        ? serviceRequirement
+        : JSON.stringify(serviceRequirement),
       MemoType.MESSAGE,
       true,
       AcpJobPhases.NEGOTIOATION

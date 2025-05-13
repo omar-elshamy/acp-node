@@ -1,5 +1,10 @@
 import { Address } from "viem";
 
+// export type OfferingSchema = {
+//   serviceRequirement: Object;
+//   deliverable: Object;
+// };
+
 export type AcpAgent = {
   id: number;
   documentId: string;
@@ -13,7 +18,7 @@ export type AcpAgent = {
   ownerAddress: string;
   cluster: string | null;
   twitterHandle: string;
-  offerings: { name: string; price: number }[];
+  offerings: { name: string; price: number; schema: string }[];
   symbol: string | null;
   virtualAgentId: string | null;
 };
