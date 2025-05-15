@@ -130,10 +130,10 @@ class AcpClient {
             data.phase
           );
 
-          callback(true);
-
           this.onEvaluate(job);
         }
+
+        callback(true);
       }
     );
 
@@ -157,10 +157,10 @@ class AcpClient {
             data.phase
           );
 
-          callback(true);
-
           this.onNewTask(job);
         }
+
+        callback(true);
       }
     );
 
@@ -196,7 +196,7 @@ class AcpClient {
             agent.walletAddress,
             offering.name,
             offering.price,
-            offering.schema
+            offering.requirementSchema
           );
         }),
         twitterHandle: agent.twitterHandle,

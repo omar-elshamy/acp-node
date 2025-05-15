@@ -1,29 +1,30 @@
 import { Address } from "viem";
 import AcpClient from "./acpClient";
-import Ajv, { JSONSchemaType } from "ajv";
+import Ajv from "ajv";
 
 class AcpJobOffering {
   private ajv: Ajv;
-  public schema: JSONSchemaType<any>;
 
   constructor(
     private readonly acpClient: AcpClient,
     public providerAddress: Address,
     public type: string,
     public price: number,
-    schema: string
+    public requirementSchema?: Object
   ) {
-    this.ajv = new Ajv();
-    this.schema = JSON.parse(schema);
+    this.ajv = new Ajv({ allErrors: true });
   }
 
-  async initiateJob(serviceRequirement: Object | string, expiredAt: Date) {
-    if (this.schema) {
-      const validate = this.ajv.compile(this.schema);
-      const valid = validate(serviceRequirement);
+  async initiateJob(
+    serviceRequirement: Object | string,
+    expiredAt: Date = new Date(Date.now() + 1000 * 60 * 60 * 24) // default: 1 day
+  ) {
+    if (this.requirementSchema) {
+      const validator = this.ajv.compile(this.requirementSchema);
+      const valid = validator(serviceRequirement);
 
       if (!valid) {
-        throw new Error("Invalid service requirement");
+        throw new Error(this.ajv.errorsText(validator.errors));
       }
     }
 

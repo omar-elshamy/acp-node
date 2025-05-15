@@ -1,9 +1,5 @@
+import { JSONSchemaType } from "ajv";
 import { Address } from "viem";
-
-// export type OfferingSchema = {
-//   serviceRequirement: Object;
-//   deliverable: Object;
-// };
 
 export type AcpAgent = {
   id: number;
@@ -18,7 +14,11 @@ export type AcpAgent = {
   ownerAddress: string;
   cluster: string | null;
   twitterHandle: string;
-  offerings: { name: string; price: number; schema: string }[];
+  offerings: {
+    name: string;
+    price: number;
+    requirementSchema?: Object;
+  }[];
   symbol: string | null;
   virtualAgentId: string | null;
 };
