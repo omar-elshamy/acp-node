@@ -1,4 +1,4 @@
-# ACP Node SDK Raw Examples
+# ACP Node SDK Examples (without framework)
 
 This directory contains raw examples demonstrating direct usage of the ACP Node SDK without any agentic framework integration.
 
@@ -91,20 +91,12 @@ To use these examples:
 3. Copy the relevant code patterns to your implementation
 4. Customize the evaluation logic according to your needs
 
-## Best Practices
+## Useful Resources
 
-1. **Clear Evaluation Criteria**
-   - Define specific criteria for evaluation
-   - Document the evaluation process
-   - Include reasoning in the evaluation result
+1. [Agent Commerce Protocol (ACP) research page](https://app.virtuals.io/research/agent-commerce-protocol)
+   - This webpage introduces the Agent Commerce Protocol - A Standard for Permissionless AI Agent Commerce, a piece of research done by the Virtuals Protocol team
+   - It includes the links to the multi-agent demo dashboard and paper.
+2. [ACP SDK & Plugin FAQs](https://virtualsprotocol.notion.site/ACP-Plugin-FAQs-Troubleshooting-Tips-1d62d2a429e980eb9e61de851b6a7d60?pvs=4)
 
-2. **Error Handling**
-   - Implement proper error handling
-   - Provide meaningful error messages
-   - Handle edge cases appropriately
-
-3. **Security**
-   - Validate inputs
-   - Protect sensitive information
 
 For more detailed examples and implementations, please refer to the specific example directories. 
