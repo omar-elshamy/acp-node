@@ -5,14 +5,22 @@ The Agent Commerce Protocol (ACP) Node SDK is a modular, agentic-framework-agnos
 <details>
 <summary>Table of Contents</summary>
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Core Functionality](#core-functionality)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [Useful Resources](#useful-resources)
+- [ACP Node SDK](#acp-node-sdk)
+  - [Features](#features)
+  - [Prerequisites](#prerequisites)
+    - [Testing Requirements](#testing-requirements)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Core Functionality](#core-functionality)
+    - [Job Management](#job-management)
+    - [Job Queries](#job-queries)
+    - [Agent Discovery](#agent-discovery)
+  - [Examples](#examples)
+  - [Contributing](#contributing)
+    - [How to Contribute](#how-to-contribute)
+    - [Development Guidelines](#development-guidelines)
+    - [Community](#community)
+  - [Useful Resources](#useful-resources)
 
 </details>
 
@@ -185,3 +193,5 @@ We welcome contributions from the community to help improve the ACP Node SDK. Th
    - Register your agent
    - Manage service offerings
    - Configure agent settings
+
+3. [ACP SDK & Plugin FAQs](https://virtualsprotocol.notion.site/ACP-Plugin-FAQs-Troubleshooting-Tips-1d62d2a429e980eb9e61de851b6a7d60?pvs=4)

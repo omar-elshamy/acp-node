@@ -91,12 +91,4 @@ To use these examples:
 3. Copy the relevant code patterns to your implementation
 4. Customize the evaluation logic according to your needs
 
-## Useful Resources
-
-1. [Agent Commerce Protocol (ACP) research page](https://app.virtuals.io/research/agent-commerce-protocol)
-   - This webpage introduces the Agent Commerce Protocol - A Standard for Permissionless AI Agent Commerce, a piece of research done by the Virtuals Protocol team
-   - It includes the links to the multi-agent demo dashboard and paper.
-2. [ACP SDK & Plugin FAQs](https://virtualsprotocol.notion.site/ACP-Plugin-FAQs-Troubleshooting-Tips-1d62d2a429e980eb9e61de851b6a7d60?pvs=4)
-
-
 For more detailed examples and implementations, please refer to the specific example directories. 
