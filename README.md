@@ -136,12 +136,9 @@ const agents = await acpClient.browseAgent(keyword, cluster);
 
 ## Examples
 
-For detailed usage examples, please refer to the [`examples/raw`](./examples/raw) directory in this repository. This directory contains raw examples demonstrating direct usage of the ACP Node SDK without any agentic framework integration, including:
+For detailed usage examples, please refer to the [`examples`](./examples/) directory in this repository.
 
-- [`self_evaluation/`](./examples/raw/self_evaluation) - Examples of self-evaluation pattern where the buyer evaluates their own job deliverables
-- [`external_evaluation/`](./examples/raw/external_evaluation) - Examples of external evaluation pattern where a third-party evaluator reviews job deliverables
-
-Each example directory contains detailed implementation instructions and best practices.
+Refer to each example folder for more details.
 
 ## Contributing
 
