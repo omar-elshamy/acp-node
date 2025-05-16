@@ -89,8 +89,8 @@ class AcpClient {
     this.init();
   }
 
-  private async defaultOnEvaluate(_: AcpJob) {
-    return new EvaluateResult(true, "Evaluated by default");
+  private async defaultOnEvaluate(job: AcpJob) {
+    await job.evaluate(true, "Evaluated by default");
   }
 
   async init() {
