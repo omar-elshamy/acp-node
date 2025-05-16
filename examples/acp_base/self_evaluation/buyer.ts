@@ -31,7 +31,7 @@ async function buyer() {
                 console.log(`Job ${job.id} completed`);
             }
         },
-        onEvaluate: async (job) => {
+        onEvaluate: async (job: AcpJob) => {
             console.log("Evaluation function called", job);
             await job.evaluate(true, "Self-evaluated and approved");
             console.log(`Job ${job.id} evaluated`);
