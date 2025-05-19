@@ -113,6 +113,8 @@ class AcpClient {
     socket.on(
       SocketEvents.ON_EVALUATE,
       async (data: IAcpJob["data"], callback) => {
+        callback(true);
+
         if (this.onEvaluate) {
           const job = new AcpJob(
             this,
@@ -132,14 +134,14 @@ class AcpClient {
 
           this.onEvaluate(job);
         }
-
-        callback(true);
       }
     );
 
     socket.on(
       SocketEvents.ON_NEW_TASK,
       async (data: IAcpJob["data"], callback) => {
+        callback(true);
+
         if (this.onNewTask) {
           const job = new AcpJob(
             this,
@@ -159,8 +161,6 @@ class AcpClient {
 
           this.onNewTask(job);
         }
-
-        callback(true);
       }
     );
 
