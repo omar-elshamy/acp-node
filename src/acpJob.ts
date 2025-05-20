@@ -11,6 +11,16 @@ class AcpJob {
     public phase: AcpJobPhases
   ) {}
 
+  public get serviceRequirement() {
+    return this.memos.find((m) => m.nextPhase === AcpJobPhases.NEGOTIATION)
+      ?.content;
+  }
+
+  public get deliverable() {
+    return this.memos.find((m) => m.nextPhase === AcpJobPhases.COMPLETED)
+      ?.content;
+  }
+
   async pay(amount: number, reason?: string) {
     const memo = this.memos.find(
       (m) => m.nextPhase === AcpJobPhases.TRANSACTION

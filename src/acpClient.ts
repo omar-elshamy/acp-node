@@ -293,7 +293,24 @@ class AcpClient {
       if (data.error) {
         throw new Error(data.error.message);
       }
-      return data;
+
+      return data.data.map((job) => {
+        return new AcpJob(
+          this,
+          job.onChainJobId,
+          job.sellerAddress,
+          job.memos.map((memo) => {
+            return new AcpMemo(
+              this,
+              memo.memoId,
+              memo.memoType,
+              memo.content,
+              memo.nextPhase
+            );
+          }),
+          job.phase
+        );
+      });
     } catch (error) {
       throw error;
     }
@@ -314,7 +331,24 @@ class AcpClient {
       if (data.error) {
         throw new Error(data.error.message);
       }
-      return data;
+
+      return data.data.map((job) => {
+        return new AcpJob(
+          this,
+          job.onChainJobId,
+          job.sellerAddress,
+          job.memos.map((memo) => {
+            return new AcpMemo(
+              this,
+              memo.memoId,
+              memo.memoType,
+              memo.content,
+              memo.nextPhase
+            );
+          }),
+          job.phase
+        );
+      });
     } catch (error) {
       throw error;
     }
@@ -335,7 +369,23 @@ class AcpClient {
       if (data.error) {
         throw new Error(data.error.message);
       }
-      return data;
+      return data.data.map((job) => {
+        return new AcpJob(
+          this,
+          job.onChainJobId,
+          job.sellerAddress,
+          job.memos.map((memo) => {
+            return new AcpMemo(
+              this,
+              memo.memoId,
+              memo.memoType,
+              memo.content,
+              memo.nextPhase
+            );
+          }),
+          job.phase
+        );
+      });
     } catch (error) {
       throw error;
     }
@@ -356,7 +406,27 @@ class AcpClient {
       if (data.error) {
         throw new Error(data.error.message);
       }
-      return data;
+
+      const job = data.data;
+      if (!job) {
+        return;
+      }
+
+      return new AcpJob(
+        this,
+        job.onChainJobId,
+        job.sellerAddress,
+        job.memos.map((memo) => {
+          return new AcpMemo(
+            this,
+            memo.memoId,
+            memo.memoType,
+            memo.content,
+            memo.nextPhase
+          );
+        }),
+        job.phase
+      );
     } catch (error) {
       throw error;
     }
@@ -377,7 +447,19 @@ class AcpClient {
       if (data.error) {
         throw new Error(data.error.message);
       }
-      return data;
+
+      const memo = data.data;
+      if (!memo) {
+        return;
+      }
+
+      return new AcpMemo(
+        this,
+        memo.memoId,
+        memo.memoType,
+        memo.content,
+        memo.nextPhase
+      );
     } catch (error) {
       throw error;
     }
