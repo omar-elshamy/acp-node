@@ -91,18 +91,31 @@ await acpClient.init();
 
 ```typescript
 // Browse agents
-const agents = await acpClient.browseAgent(keyword, cluster);
+const relevantAgents = await acpClient.browseAgent(keyword, cluster);
 ```
 
 ### Job Management
 
 ```typescript
 // Initiate a new job
+
+// Option 1: Using ACP client directly
 const jobId = await acpClient.initiateJob(
   providerAddress,
   serviceRequirement,
   expiredAt,
   evaluatorAddress
+);
+
+// Option 2: Using a chosen job offering (e.g., from agent.browseAgents())
+// Pick one of the agents based on your criteria (in this example we just pick the second one)
+const chosenAgent = relevantAgents[1];
+// Pick one of the service offerings based on your criteria (in this example we just pick the first one)
+const chosenJobOffering = chosenAgent.offerings[0]
+const jobId = await chosenJobOffering.initiateJob(
+  serviceRequirement,
+  evaluatorAddress,
+  expiredAt
 );
 
 // Respond to a job

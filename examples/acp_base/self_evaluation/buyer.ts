@@ -6,7 +6,6 @@ import AcpJob from "../../../src/acpJob";
 import { baseSepoliaAcpConfig } from "../../../src";
 import {
     BUYER_WALLET_ADDRESS,
-    SELLER_WALLET_ADDRESS,
     WHITELISTED_WALLET_ENTITY_ID,
     WHITELISTED_WALLET_PRIVATE_KEY
 } from "./env";
@@ -38,17 +37,19 @@ async function buyer() {
         },
     });
 
-    const relevantAgents = await acpClient.browseAgent("Meme generator");
+    const relevantAgents = await acpClient.browseAgent("meme", "999");
     console.log("Relevant seller agents: ", relevantAgents);
-    // agents = acpClient.browseAgent(keyword="meme", cluster="999")
-    
-    // job_offering = agents[1].offerings[0]
+    // Pick one of the agents based on your criteria (in this example we just pick the second one)
+    const chosenAgent = relevantAgents[1];
+    // Pick one of the service offerings based on your criteria (in this example we just pick the first one)
+    const chosenJobOffering = chosenAgent.offerings[0]
 
-    const jobId = await acpClient.initiateJob(
-        SELLER_WALLET_ADDRESS,
-        "Meme generator",
-        undefined
+    const jobId = await chosenJobOffering.initiateJob(
+        chosenJobOffering.requirementSchema || {},
+        chosenAgent.walletAddress,
+        new Date(Date.now() + 1000 * 60 * 60 * 24)
     );
+
     console.log(`Job ${jobId} initiated`);
 }
 

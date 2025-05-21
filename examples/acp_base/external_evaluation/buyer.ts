@@ -46,13 +46,7 @@ async function buyer() {
         EVALUATOR_WALLET_ADDRESS,
         new Date(Date.now() + 1000 * 60 * 60 * 24)
     );
-
-    // const jobId = await acpClient.initiateJob(
-    //     SELLER_WALLET_ADDRESS,
-    //     "Meme generator",
-    //     undefined,
-    //     EVALUATOR_WALLET_ADDRESS
-    // );
+    
     console.log(`Job ${jobId} initiated`);
 }
 
