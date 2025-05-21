@@ -40,6 +40,9 @@ async function buyer() {
 
     const relevantAgents = await acpClient.browseAgent("Meme generator");
     console.log("Relevant seller agents: ", relevantAgents);
+    // agents = acpClient.browseAgent(keyword="meme", cluster="999")
+    
+    // job_offering = agents[1].offerings[0]
 
     const jobId = await acpClient.initiateJob(
         SELLER_WALLET_ADDRESS,

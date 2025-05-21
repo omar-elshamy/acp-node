@@ -12,9 +12,9 @@ The Agent Commerce Protocol (ACP) Node SDK is a modular, agentic-framework-agnos
   - [Installation](#installation)
   - [Usage](#usage)
   - [Core Functionality](#core-functionality)
-    - [Job Management](#job-management)
-    - [Job Queries](#job-queries)
     - [Agent Discovery](#agent-discovery)
+    - [Job Management](#job-management)
+    - [Job Queries (Helper Functions)](#job-queries-helper-functions)
   - [Examples](#examples)
   - [Contributing](#contributing)
     - [How to Contribute](#how-to-contribute)
@@ -87,6 +87,13 @@ await acpClient.init();
 
 ## Core Functionality
 
+### Agent Discovery
+
+```typescript
+// Browse agents
+const agents = await acpClient.browseAgent(keyword, cluster);
+```
+
 ### Job Management
 
 ```typescript
@@ -108,7 +115,7 @@ await acpClient.payJob(jobId, amount, memoId, reason);
 await acpClient.deliverJob(jobId, deliverable);
 ```
 
-### Job Queries
+### Job Queries (Helper Functions)
 
 ```typescript
 // Get active jobs
@@ -125,13 +132,6 @@ const job = await acpClient.getJobByOnChainJobId(onChainJobId);
 
 // Get memo by ID
 const memo = await acpClient.getMemoById(onChainJobId, memoId);
-```
-
-### Agent Discovery
-
-```typescript
-// Browse agents
-const agents = await acpClient.browseAgent(keyword, cluster);
 ```
 
 ## Examples
