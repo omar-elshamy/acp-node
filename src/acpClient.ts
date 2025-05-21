@@ -5,59 +5,12 @@ import { AcpAgent } from "../interfaces";
 import AcpJob from "./acpJob";
 import AcpMemo from "./acpMemo";
 import AcpJobOffering from "./acpJobOffering";
-
-export interface IDeliverable {
-  type: string;
-  value: string;
-}
-
-interface IAcpMemoData {
-  onChainJobId?: number;
-  type: string;
-  content: string;
-  createdAt: string;
-  memoId: number;
-  memoType: MemoType;
-  nextPhase: AcpJobPhases;
-}
-interface IAcpMemo {
-  data: IAcpMemoData;
-  error?: Error;
-}
-
-interface IAcpJob {
-  data: {
-    onChainJobId: number;
-    phase: AcpJobPhases;
-    description: string;
-    buyerAddress: `0x${string}`;
-    sellerAddress: `0x${string}`;
-    evaluatorAddress: `0x${string}`;
-    price: number;
-    deliverable: IDeliverable | null;
-    memos: IAcpMemoData[];
-    createdAt: string;
-  };
-  error?: Error;
-}
-interface IAcpJobResponse {
-  data: IAcpJob["data"][];
-  meta?: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-  error?: Error;
-}
-
-interface IAcpClientOptions {
-  acpContractClient: AcpContractClient;
-  onNewTask?: (job: AcpJob) => void;
-  onEvaluate?: (job: AcpJob) => void;
-}
+import {
+  IAcpClientOptions,
+  IAcpJob,
+  IAcpJobResponse,
+  IAcpMemo,
+} from "./interfaces";
 
 enum SocketEvents {
   ROOM_JOINED = "roomJoined",
@@ -118,12 +71,14 @@ class AcpClient {
         if (this.onEvaluate) {
           const job = new AcpJob(
             this,
-            data.onChainJobId,
-            data.sellerAddress,
+            data.id,
+            data.clientAddress,
+            data.providerAddress,
+            data.evaluatorAddress,
             data.memos.map((memo) => {
               return new AcpMemo(
                 this,
-                memo.memoId,
+                memo.id,
                 memo.memoType,
                 memo.content,
                 memo.nextPhase
@@ -145,12 +100,14 @@ class AcpClient {
         if (this.onNewTask) {
           const job = new AcpJob(
             this,
-            data.onChainJobId,
-            data.sellerAddress,
+            data.id,
+            data.clientAddress,
+            data.providerAddress,
+            data.evaluatorAddress,
             data.memos.map((memo) => {
               return new AcpMemo(
                 this,
-                memo.memoId,
+                memo.id,
                 memo.memoType,
                 memo.content,
                 memo.nextPhase
@@ -297,12 +254,14 @@ class AcpClient {
       return data.data.map((job) => {
         return new AcpJob(
           this,
-          job.onChainJobId,
-          job.sellerAddress,
+          job.id,
+          job.clientAddress,
+          job.providerAddress,
+          job.evaluatorAddress,
           job.memos.map((memo) => {
             return new AcpMemo(
               this,
-              memo.memoId,
+              memo.id,
               memo.memoType,
               memo.content,
               memo.nextPhase
@@ -335,12 +294,14 @@ class AcpClient {
       return data.data.map((job) => {
         return new AcpJob(
           this,
-          job.onChainJobId,
-          job.sellerAddress,
+          job.id,
+          job.clientAddress,
+          job.providerAddress,
+          job.evaluatorAddress,
           job.memos.map((memo) => {
             return new AcpMemo(
               this,
-              memo.memoId,
+              memo.id,
               memo.memoType,
               memo.content,
               memo.nextPhase
@@ -372,12 +333,14 @@ class AcpClient {
       return data.data.map((job) => {
         return new AcpJob(
           this,
-          job.onChainJobId,
-          job.sellerAddress,
+          job.id,
+          job.clientAddress,
+          job.providerAddress,
+          job.evaluatorAddress,
           job.memos.map((memo) => {
             return new AcpMemo(
               this,
-              memo.memoId,
+              memo.id,
               memo.memoType,
               memo.content,
               memo.nextPhase
@@ -391,8 +354,8 @@ class AcpClient {
     }
   }
 
-  async getJobByOnChainJobId(onChainJobId: number) {
-    let url = `${this.acpUrl}/api/jobs/${onChainJobId}`;
+  async getJobById(jobId: number) {
+    let url = `${this.acpUrl}/api/jobs/${jobId}`;
 
     try {
       const response = await fetch(url, {
@@ -414,12 +377,14 @@ class AcpClient {
 
       return new AcpJob(
         this,
-        job.onChainJobId,
-        job.sellerAddress,
+        job.id,
+        job.clientAddress,
+        job.providerAddress,
+        job.evaluatorAddress,
         job.memos.map((memo) => {
           return new AcpMemo(
             this,
-            memo.memoId,
+            memo.id,
             memo.memoType,
             memo.content,
             memo.nextPhase
@@ -432,8 +397,8 @@ class AcpClient {
     }
   }
 
-  async getMemoById(onChainJobId: number, memoId: number) {
-    let url = `${this.acpUrl}/api/jobs/${onChainJobId}/memos/${memoId}`;
+  async getMemoById(jobId: number, memoId: number) {
+    let url = `${this.acpUrl}/api/jobs/${jobId}/memos/${memoId}`;
 
     try {
       const response = await fetch(url, {
@@ -455,7 +420,7 @@ class AcpClient {
 
       return new AcpMemo(
         this,
-        memo.memoId,
+        memo.id,
         memo.memoType,
         memo.content,
         memo.nextPhase
@@ -463,6 +428,23 @@ class AcpClient {
     } catch (error) {
       throw error;
     }
+  }
+
+  async getAgent(walletAddress: Address) {
+    const url = `${this.acpUrl}/api/agents?filters[walletAddress]=${walletAddress}`;
+
+    const response = await fetch(url);
+    const data: {
+      data: AcpAgent[];
+    } = await response.json();
+
+    const agents = data.data || [];
+
+    if (agents.length === 0) {
+      return;
+    }
+
+    return agents[0];
   }
 }
 
