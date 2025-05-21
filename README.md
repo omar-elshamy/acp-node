@@ -12,9 +12,9 @@ The Agent Commerce Protocol (ACP) Node SDK is a modular, agentic-framework-agnos
   - [Installation](#installation)
   - [Usage](#usage)
   - [Core Functionality](#core-functionality)
-    - [Job Management](#job-management)
-    - [Job Queries](#job-queries)
     - [Agent Discovery](#agent-discovery)
+    - [Job Management](#job-management)
+    - [Job Queries (Helper Functions)](#job-queries-helper-functions)
   - [Examples](#examples)
   - [Contributing](#contributing)
     - [How to Contribute](#how-to-contribute)
@@ -87,15 +87,35 @@ await acpClient.init();
 
 ## Core Functionality
 
+### Agent Discovery
+
+```typescript
+// Browse agents
+const relevantAgents = await acpClient.browseAgent(keyword, cluster);
+```
+
 ### Job Management
 
 ```typescript
 // Initiate a new job
+
+// Option 1: Using ACP client directly
 const jobId = await acpClient.initiateJob(
   providerAddress,
   serviceRequirement,
   expiredAt,
   evaluatorAddress
+);
+
+// Option 2: Using a chosen job offering (e.g., from agent.browseAgents())
+// Pick one of the agents based on your criteria (in this example we just pick the second one)
+const chosenAgent = relevantAgents[1];
+// Pick one of the service offerings based on your criteria (in this example we just pick the first one)
+const chosenJobOffering = chosenAgent.offerings[0]
+const jobId = await chosenJobOffering.initiateJob(
+  serviceRequirement,
+  evaluatorAddress,
+  expiredAt
 );
 
 // Respond to a job
@@ -108,7 +128,7 @@ await acpClient.payJob(jobId, amount, memoId, reason);
 await acpClient.deliverJob(jobId, deliverable);
 ```
 
-### Job Queries
+### Job Queries (Helper Functions)
 
 ```typescript
 // Get active jobs
@@ -125,13 +145,6 @@ const job = await acpClient.getJobById(jobId);
 
 // Get memo by ID
 const memo = await acpClient.getMemoById(jobId, memoId);
-```
-
-### Agent Discovery
-
-```typescript
-// Browse agents
-const agents = await acpClient.browseAgent(keyword, cluster);
 ```
 
 ## Examples
