@@ -7,7 +7,6 @@ import { baseSepoliaAcpConfig } from "../../../src";
 import {
     BUYER_WALLET_ADDRESS,
     EVALUATOR_WALLET_ADDRESS,
-    SELLER_WALLET_ADDRESS,
     WHITELISTED_WALLET_ENTITY_ID,
     WHITELISTED_WALLET_PRIVATE_KEY
 } from "./env";
