@@ -36,14 +36,14 @@ async function buyer() {
 
     const relevantAgents = await acpClient.browseAgent("meme", "999");
     console.log("Relevant seller agents: ", relevantAgents);
-    const chosenAgent = relevantAgents[0];
+    // Pick one of the agents based on your criteria (in this example we just pick the second one)
+    const chosenAgent = relevantAgents[1];
+    // Pick one of the service offerings based on your criteria (in this example we just pick the first one)
     const chosenJobOffering = chosenAgent.offerings[0]
 
     const jobId = await chosenJobOffering.initiateJob(
-        {
-          name: "John",
-          age: 30,
-        },
+        chosenJobOffering.requirementSchema || {},
+        EVALUATOR_WALLET_ADDRESS,
         new Date(Date.now() + 1000 * 60 * 60 * 24)
     );
 
