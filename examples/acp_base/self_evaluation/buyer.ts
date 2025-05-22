@@ -37,7 +37,7 @@ async function buyer() {
         },
     });
 
-    const relevantAgents = await acpClient.browseAgents("meme", "yang_test");
+    const relevantAgents = await acpClient.browseAgents("meme", "999");
     // Pick one of the agents based on your criteria (in this example we just pick the first one)
     const chosenAgent = relevantAgents[0];
     // Pick one of the service offerings based on your criteria (in this example we just pick the first one)
