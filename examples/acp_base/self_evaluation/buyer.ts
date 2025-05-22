@@ -47,7 +47,7 @@ async function buyer() {
     const jobId = await chosenJobOffering.initiateJob(
         // <your_schema_field> can be found in your ACP Visualiser's "Edit Service" pop-up.
         // Reference: (./images/specify-requirement-toggle-switch.png)
-        chosenJobOffering.requirementSchema || {'<your_schema_field>': "Help me to generate a flower meme."},
+        {'<your_schema_field>': "Help me to generate a flower meme."},
         new Date(Date.now() + 1000 * 60 * 60 * 24),
     );
 
