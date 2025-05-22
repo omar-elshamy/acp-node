@@ -1,9 +1,12 @@
 {
-  "name": "acp-node",
-  "version": "0.1.0",
-  "main": "index.js",
+  "name": "@virtuals-protocol/acp-node",
+  "version": "0.1.0-beta.2",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsup": "tsup src/index.ts --dts --format cjs,esm --out-dir dist"
   },
   "author": "",
   "license": "ISC",
@@ -15,8 +18,12 @@
     "@aa-sdk/core": "^4.30.0",
     "@account-kit/infra": "^4.30.0",
     "@account-kit/smart-contracts": "^4.30.0",
+    "ajv": "^8.17.1",
     "socket.io-client": "^4.8.1",
-    "viem": "^2.28.2",
-    "ajv": "^8.17.1"
-  }
+    "tsup": "^8.5.0",
+    "viem": "^2.28.2"
+  },
+  "files": [
+    "dist"
+  ]
 }
