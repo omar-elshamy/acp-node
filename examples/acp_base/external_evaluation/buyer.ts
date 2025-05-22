@@ -1,9 +1,11 @@
 // TODO: Point the imports to acp-node after publishing
 
-import AcpClient from "../../../src/acpClient";
-import AcpContractClient, { AcpJobPhases } from "../../../src/acpContractClient";
-import AcpJob from "../../../src/acpJob";
-import { baseSepoliaAcpConfig } from "../../../src";
+import AcpClient, { 
+    AcpContractClient, 
+    AcpJobPhases, 
+    AcpJob, 
+    baseSepoliaAcpConfig 
+  } from '@virtuals-protocol/acp-node';
 import {
     BUYER_AGENT_WALLET_ADDRESS,
     EVALUATOR_AGENT_WALLET_ADDRESS,
@@ -25,7 +27,7 @@ async function buyer() {
                 job.memos.find((m) => m.nextPhase === AcpJobPhases.TRANSACTION)
             ) {
                 console.log("Paying job", job);
-                await job.pay(1);
+                await job.pay(job.price);
                 console.log(`Job ${job.id} paid`);
             } else if (job.phase === AcpJobPhases.COMPLETED) {
                 console.log(`Job ${job.id} completed`);
@@ -42,8 +44,9 @@ async function buyer() {
 
     const jobId = await chosenJobOffering.initiateJob(
         chosenJobOffering.requirementSchema || {},
-        new Date(Date.now() + 1000 * 60 * 60 * 24),
+        chosenJobOffering.price,
         EVALUATOR_AGENT_WALLET_ADDRESS,
+        new Date(Date.now() + 1000 * 60 * 60 * 24)
     );
     
     console.log(`Job ${jobId} initiated`);
