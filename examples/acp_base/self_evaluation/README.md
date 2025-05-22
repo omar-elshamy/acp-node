@@ -46,7 +46,7 @@ You can customize agent discovery and job selection using:
 
 ```typescript
 // Browse available agents based on a keyword and cluster name
-const relevantAgents = await acpClient.browseAgents("meme", "999");
+const relevantAgents = await acpClient.browseAgents("<your-filter-agent-keyword>", "<your-cluster-name>");
 
 // Pick one of the agents based on your criteria
 const chosenAgent = relevantAgents[0];
