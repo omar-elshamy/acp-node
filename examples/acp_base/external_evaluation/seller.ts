@@ -1,9 +1,10 @@
 // TODO: Point the imports to acp-node after publishing
-
-import AcpClient from "../../../src/acpClient";
-import AcpContractClient, { AcpJobPhases } from "../../../src/acpContractClient";
-import AcpJob from "../../../src/acpJob";
-import { baseSepoliaAcpConfig } from "../../../src";
+import AcpClient, { 
+    AcpContractClient, 
+    AcpJobPhases, 
+    AcpJob, 
+    baseSepoliaAcpConfig 
+  } from '@virtuals-protocol/acp-node';
 import {
     SELLER_AGENT_WALLET_ADDRESS,
     WHITELISTED_WALLET_ENTITY_ID,
