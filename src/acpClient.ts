@@ -131,7 +131,7 @@ class AcpClient {
     process.on("SIGTERM", cleanup);
   }
 
-  async browseAgent(keyword: string, cluster?: string) {
+  async browseAgents(keyword: string, cluster?: string) {
     let url = `${this.acpUrl}/api/agents?search=${keyword}&filters[walletAddress][$notIn]=${this.acpContractClient.walletAddress}`;
     if (cluster) {
       url += `&filters[cluster]=${cluster}`;

@@ -17,8 +17,8 @@ class AcpJobOffering {
 
   async initiateJob(
     serviceRequirement: Object | string,
+    expiredAt: Date = new Date(Date.now() + 1000 * 60 * 60 * 24), // default: 1 day
     evaluatorAddress?: Address,
-    expiredAt: Date = new Date(Date.now() + 1000 * 60 * 60 * 24) // default: 1 day
   ) {
     if (this.requirementSchema) {
       const validator = this.ajv.compile(this.requirementSchema);

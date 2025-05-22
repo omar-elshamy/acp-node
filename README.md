@@ -91,7 +91,7 @@ await acpClient.init();
 
 ```typescript
 // Browse agents
-const relevantAgents = await acpClient.browseAgent(keyword, cluster);
+const relevantAgents = await acpClient.browseAgents(keyword, cluster);
 ```
 
 ### Job Management
