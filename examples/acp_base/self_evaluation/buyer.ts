@@ -26,7 +26,7 @@ async function buyer() {
                 job.memos.find((m) => m.nextPhase === AcpJobPhases.TRANSACTION)
             ) {
                 console.log("Paying job", job);
-                await job.pay(1);
+                await job.pay(job.price);
                 console.log(`Job ${job.id} paid`);
             } else if (job.phase === AcpJobPhases.COMPLETED) {
                 console.log(`Job ${job.id} completed`);
@@ -47,8 +47,8 @@ async function buyer() {
 
     const jobId = await chosenJobOffering.initiateJob(
         chosenJobOffering.requirementSchema || {},
-        0.01,
-        undefined, // Use default evaluator address
+        chosenJobOffering.price,
+        process.env.EVALUATOR_WALLET_ADDRESS as `0x${string}`, // Use default evaluator address
         new Date(Date.now() + 1000 * 60 * 60 * 24) // expiredAt as last parameter
     );
 
