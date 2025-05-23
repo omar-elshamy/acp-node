@@ -75,6 +75,7 @@ class AcpClient {
             data.clientAddress,
             data.providerAddress,
             data.evaluatorAddress,
+            data.price,
             data.memos.map((memo) => {
               return new AcpMemo(
                 this,
@@ -104,6 +105,7 @@ class AcpClient {
             data.clientAddress,
             data.providerAddress,
             data.evaluatorAddress,
+            data.price,
             data.memos.map((memo) => {
               return new AcpMemo(
                 this,
@@ -165,13 +167,19 @@ class AcpClient {
   async initiateJob(
     providerAddress: Address,
     serviceRequirement: Object | string,
-    expiredAt: Date = new Date(Date.now() + 1000 * 60 * 60 * 24),
-    evaluatorAddress?: Address
+    amount: number,
+    evaluatorAddress?: Address,
+    expiredAt: Date = new Date(Date.now() + 1000 * 60 * 60 * 24)
   ) {
     const { jobId } = await this.acpContractClient.createJob(
       providerAddress,
       evaluatorAddress || this.acpContractClient.walletAddress,
       expiredAt
+    );
+
+    await this.acpContractClient.setBudget(
+      jobId,
+      parseEther(amount.toString())
     );
 
     await this.acpContractClient.createMemo(
@@ -205,11 +213,6 @@ class AcpClient {
   }
 
   async payJob(jobId: number, amount: number, memoId: number, reason?: string) {
-    await this.acpContractClient.setBudget(
-      jobId,
-      parseEther(amount.toString())
-    );
-
     await this.acpContractClient.approveAllowance(
       parseEther(amount.toString())
     );
@@ -258,6 +261,7 @@ class AcpClient {
           job.clientAddress,
           job.providerAddress,
           job.evaluatorAddress,
+          job.price,
           job.memos.map((memo) => {
             return new AcpMemo(
               this,
@@ -298,6 +302,7 @@ class AcpClient {
           job.clientAddress,
           job.providerAddress,
           job.evaluatorAddress,
+          job.price,
           job.memos.map((memo) => {
             return new AcpMemo(
               this,
@@ -337,6 +342,7 @@ class AcpClient {
           job.clientAddress,
           job.providerAddress,
           job.evaluatorAddress,
+          job.price,
           job.memos.map((memo) => {
             return new AcpMemo(
               this,
@@ -381,6 +387,7 @@ class AcpClient {
         job.clientAddress,
         job.providerAddress,
         job.evaluatorAddress,
+        job.price,
         job.memos.map((memo) => {
           return new AcpMemo(
             this,
