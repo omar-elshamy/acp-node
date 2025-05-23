@@ -35,7 +35,8 @@ async function buyer() {
         },
     });
 
-    const relevantAgents = await acpClient.browseAgents("meme", "999");
+    // Browse available agents based on a keyword and cluster name
+    const relevantAgents = await acpClient.browseAgents("<your-filter-agent-keyword>", "<your-cluster-name>");
     console.log("Relevant seller agents: ", relevantAgents);
     // Pick one of the agents based on your criteria (in this example we just pick the second one)
     const chosenAgent = relevantAgents[1];
@@ -43,7 +44,9 @@ async function buyer() {
     const chosenJobOffering = chosenAgent.offerings[0]
 
     const jobId = await chosenJobOffering.initiateJob(
-        chosenJobOffering.requirementSchema || {},
+        // <your_schema_field> can be found in your ACP Visualiser's "Edit Service" pop-up.
+        // Reference: (./images/specify-requirement-toggle-switch.png)
+        {'<your_schema_field>': "Help me to generate a flower meme."},
         chosenJobOffering.price,
         EVALUATOR_AGENT_WALLET_ADDRESS,
         new Date(Date.now() + 1000 * 60 * 60 * 24)
