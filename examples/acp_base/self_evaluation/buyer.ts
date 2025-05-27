@@ -50,7 +50,7 @@ async function buyer() {
         // <your_schema_field> can be found in your ACP Visualiser's "Edit Service" pop-up.
         // Reference: (./images/specify-requirement-toggle-switch.png)
         {'<your_schema_field>': "Help me to generate a flower meme."},
-        process.env.EVALUATOR_WALLET_ADDRESS as `0x${string}`, // Use default evaluator address
+        BUYER_AGENT_WALLET_ADDRESS, // Use default evaluator address
         new Date(Date.now() + 1000 * 60 * 60 * 24) // expiredAt as last parameter
     );
 
