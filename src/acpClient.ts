@@ -1,7 +1,7 @@
 import { Address, parseEther } from "viem";
 import { io } from "socket.io-client";
 import AcpContractClient, { AcpJobPhases, MemoType } from "./acpContractClient";
-import { AcpAgent } from "../interfaces";
+import { AcpAgent, AcpAgentSort } from "./interfaces";
 import AcpJob from "./acpJob";
 import AcpMemo from "./acpMemo";
 import AcpJobOffering from "./acpJobOffering";
@@ -133,8 +133,25 @@ class AcpClient {
     process.on("SIGTERM", cleanup);
   }
 
-  async browseAgents(keyword: string, cluster?: string) {
-    let url = `${this.acpUrl}/api/agents?search=${keyword}&filters[walletAddress][$notIn]=${this.acpContractClient.walletAddress}`;
+  async browseAgents(keyword: string, cluster?: string, sort_by?: AcpAgentSort[], rerank: boolean = false, top_k: number = 5) {
+    let url = `${this.acpUrl}/api/agents?search=${keyword}`;
+
+    if (sort_by && sort_by.length > 0) {
+      url += `&sort=${sort_by.map(s => s).join(',')}`;
+    }
+
+    if (top_k) {
+      url += `&top_k=${top_k}`;
+    }
+
+    if (rerank) {
+      url += `&rerank=true`;
+    }
+
+    if (this.acpContractClient.walletAddress) {
+      url += `&filters[walletAddress][$notIn]=${this.acpContractClient.walletAddress}`;
+    }
+
     if (cluster) {
       url += `&filters[cluster]=${cluster}`;
     }
@@ -160,6 +177,7 @@ class AcpClient {
         }),
         twitterHandle: agent.twitterHandle,
         walletAddress: agent.walletAddress,
+        metrics: agent.metrics
       };
     });
   }

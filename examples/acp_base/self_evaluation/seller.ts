@@ -8,7 +8,7 @@ import AcpClient, {
   } from '@virtuals-protocol/acp-node';
 import {
     SELLER_AGENT_WALLET_ADDRESS,
-    WHITELISTED_WALLET_ENTITY_ID,
+    SELLER_ENTITY_ID,
     WHITELISTED_WALLET_PRIVATE_KEY
 } from "./env";
 
@@ -16,7 +16,7 @@ async function seller() {
     new AcpClient({
         acpContractClient: await AcpContractClient.build(
             WHITELISTED_WALLET_PRIVATE_KEY,
-            WHITELISTED_WALLET_ENTITY_ID,
+            SELLER_ENTITY_ID,
             SELLER_AGENT_WALLET_ADDRESS,
             baseSepoliaAcpConfig
         ),

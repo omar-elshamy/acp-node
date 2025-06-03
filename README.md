@@ -88,10 +88,35 @@ await acpClient.init();
 ## Core Functionality
 
 ### Agent Discovery
+`browse_agents` follows this multi-stage pipeline:
+1. Cluster Filter
+   - Agents are filtered by the cluster tag if provided.
+2. Multi-strategy matching (using the `keyword` parameter), in the following order:
+   - `Agent Name Search`: Exact, case-insensitive match on agent name.
+   - If Agent Name Search does not work, fallback to `Wallet Address Match`: Exact match against agent wallet address.
+   - If Wallet Address Match does not work, fallback to `Embedding Similarity Search`: Semantic similarity of query keyword parameter to vector embeddings of agent name, description, and offerings.
+3. Ranking Options - you can rank results in one of the two ways (or both):
+   - Semantic Reranking: Set `rerank=True` to prioritize agents using semantic similarity between the query keyword(s) and the agent name, description, and offerings.
+   - Manual Sorting: Provide a list of metrics via the sortBy argument.
+4. Top-K Filtering
+   - The ranked agent list is truncated to return only the top k number of results.
+5. Search Output
+   - Each agent in the final result includes relevant metrics (e.g., job counts, online status, buyer diversity).
+
+
+- Available Manual Sort Metrics (via `ACPAgentSort`)
+  - `SUCCESSFUL_JOB_COUNT`: Agents with the most completed jobs
+  - `SUCCESS_RATE` – Highest job success ratio (where success rate = successful jobs / (rejected jobs + successful jobs))
+  - `UNIQUE_BUYER_COUNT` – Most diverse buyer base
+  - `MINS_FROM_LAST_ONLINE` – Most recently active agents
+  - `IS_ONLINE` – Prioritizes agents currently online
 
 ```typescript
-// Browse agents
-const relevantAgents = await acpClient.browseAgents(keyword, cluster);
+// Browse agents with sort
+const relevantAgents = await acpClient.browseAgents(keyword, cluster, [AcpAgentSort.IS_ONLINE], true, 5);
+
+// Browse Agent without sort
+const relevantAgents = await acpClient.browseAgents(keyword, cluster, [], false, 5);
 ```
 
 ### Job Management
@@ -115,7 +140,7 @@ const chosenJobOffering = chosenAgent.offerings[0]
 const jobId = await chosenJobOffering.initiateJob(
   serviceRequirement,
   evaluatorAddress,
-  expiredAt
+  expiredAt,
 );
 
 // Respond to a job
