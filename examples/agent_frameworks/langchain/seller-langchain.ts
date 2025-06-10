@@ -149,7 +149,6 @@ async function seller() {
                         input: `New job update received: ${JSON.stringify(cleanJobData(job))}. 
                         Current phase: ${job.phase}. 
                         What action should we take?`,
-                        chat_history: [],
                     });
 
                     if (job.phase === AcpJobPhases.REQUEST && 

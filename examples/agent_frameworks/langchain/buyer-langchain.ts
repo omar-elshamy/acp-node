@@ -152,7 +152,6 @@ async function buyer() {
                         input: `New job update received: ${JSON.stringify(cleanJobData(job))}. 
                         Current phase: ${job.phase}. 
                         What action should we take?`,
-                        chat_history: [],
                     });
 
                     if (job.phase === AcpJobPhases.NEGOTIATION && 
@@ -179,7 +178,6 @@ async function buyer() {
             input: `We need to find a meme generator service. 
             Please help us search for agents and initiate a job with the best one.
             The job should be for generating a flower meme.`,
-            chat_history: [],
         });
 
         console.log("Agent's decision:", result.output);
@@ -198,7 +196,6 @@ async function buyer() {
         const agentChoice = await buyerAgent.invoke({
             input: `Here are the available agents: ${JSON.stringify(cleanAgents)}. 
             Which one should we choose and why?`,
-            chat_history: [],
         });
 
         console.log("Agent's choice:", agentChoice.output);
