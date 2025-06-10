@@ -6,15 +6,14 @@ import AcpClient, {
     AcpJob, 
     baseSepoliaAcpConfig 
 } from '@virtuals-protocol/acp-node';
-import {
-    SELLER_WALLET_ADDRESS,
-    WHITELISTED_WALLET_ENTITY_ID,
-    WHITELISTED_WALLET_PRIVATE_KEY
-} from "../../acp_base/self_evaluation/env";
 import { ChatOpenAI } from "@langchain/openai";
 import { AgentExecutor, createOpenAIFunctionsAgent } from "langchain/agents";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { Tool } from "@langchain/core/tools";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
+dotenv.config();
 
 // Helper function to create a clean version of job data without circular references
 function cleanJobData(job: any) {
@@ -138,9 +137,9 @@ async function seller() {
     try {
         acpClient = new AcpClient({
             acpContractClient: await AcpContractClient.build(
-                WHITELISTED_WALLET_PRIVATE_KEY,
-                WHITELISTED_WALLET_ENTITY_ID,
-                SELLER_WALLET_ADDRESS,
+                process.env.WHITELISTED_WALLET_PRIVATE_KEY! as `0x${string}`,
+                parseInt(process.env.WHITELISTED_WALLET_ENTITY_ID!),
+                process.env.SELLER_WALLET_ADDRESS! as `0x${string}`,
                 baseSepoliaAcpConfig
             ),
             onNewTask: async (job: AcpJob) => {
