@@ -114,7 +114,6 @@ async function createBuyerAgent() {
     
     Be proactive in your decision-making and maintain professional communication.
     Always consider the quality and value of the service before making payments.`],
-    ["placeholder", "{chat_history}"],
     ["human", "{input}"],
     ["placeholder", "{agent_scratchpad}"],
   ]);

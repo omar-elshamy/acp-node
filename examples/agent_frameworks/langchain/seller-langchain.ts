@@ -111,7 +111,6 @@ async function createSellerAgent() {
     - Maintain high standards for your meme generation service
     
     Always think carefully about each decision and explain your reasoning.`],
-    ["placeholder", "{chat_history}"],
     ["human", "{input}"],
     ["placeholder", "{agent_scratchpad}"],
   ]);
