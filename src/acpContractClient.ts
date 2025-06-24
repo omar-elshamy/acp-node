@@ -4,7 +4,7 @@ import {
   ModularAccountV2Client,
   createModularAccountV2Client,
 } from "@account-kit/smart-contracts";
-import { AcpContractConfig } from "./configs";
+import { AcpContractConfig, baseAcpConfig } from "./configs";
 import ACP_ABI from "./acpAbi";
 import { encodeFunctionData, erc20Abi, fromHex } from "viem";
 
@@ -37,7 +37,7 @@ class AcpContractClient {
     private walletPrivateKey: Address,
     private sessionEntityKeyId: number,
     private agentWalletAddress: Address,
-    public config: AcpContractConfig
+    public config: AcpContractConfig = baseAcpConfig
   ) {
     this.chain = config.chain;
     this.contractAddress = config.contractAddress;
@@ -48,7 +48,7 @@ class AcpContractClient {
     walletPrivateKey: Address,
     sessionEntityKeyId: number,
     agentWalletAddress: Address,
-    config: AcpContractConfig
+    config: AcpContractConfig = baseAcpConfig
   ) {
     const acpContractClient = new AcpContractClient(
       walletPrivateKey,
