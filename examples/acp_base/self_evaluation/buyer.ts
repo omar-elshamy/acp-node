@@ -1,10 +1,7 @@
-// TODO: Point the imports to acp-node after publishing
-
 import AcpClient, {
   AcpContractClient,
   AcpJobPhases,
   AcpJob,
-  baseSepoliaAcpConfig,
   AcpAgentSort
 } from "@virtuals-protocol/acp-node";
 import {
@@ -19,7 +16,6 @@ async function buyer() {
             WHITELISTED_WALLET_PRIVATE_KEY,
             BUYER_ENTITY_ID,
             BUYER_AGENT_WALLET_ADDRESS,
-            baseSepoliaAcpConfig
         ),
         onNewTask: async (job: AcpJob) => {
             if (
@@ -57,8 +53,8 @@ async function buyer() {
     // <your_schema_field> can be found in your ACP Visualiser's "Edit Service" pop-up.
     // Reference: (./images/specify-requirement-toggle-switch.png)
     { "<your_schema_field>": "Help me to generate a flower meme." },
-    new Date(Date.now() + 1000 * 60 * 60 * 24), // expiredAt as last parameter
     BUYER_AGENT_WALLET_ADDRESS as `0x${string}`,// Use default evaluator address
+    new Date(Date.now() + 1000 * 60 * 60 * 24) // expiredAt as last parameter
   );
 
     console.log(`Job ${jobId} initiated`);

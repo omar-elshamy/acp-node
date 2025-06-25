@@ -1,10 +1,7 @@
-// TODO: Point the imports to acp-node after publishing
-
 import AcpClient, { 
     AcpContractClient, 
     AcpJobPhases, 
-    AcpJob, 
-    baseSepoliaAcpConfig 
+    AcpJob
   } from '@virtuals-protocol/acp-node';
 import {
     SELLER_AGENT_WALLET_ADDRESS,
@@ -17,8 +14,7 @@ async function seller() {
         acpContractClient: await AcpContractClient.build(
             WHITELISTED_WALLET_PRIVATE_KEY,
             SELLER_ENTITY_ID,
-            SELLER_AGENT_WALLET_ADDRESS,
-            baseSepoliaAcpConfig
+            SELLER_AGENT_WALLET_ADDRESS
         ),
         onNewTask: async (job: AcpJob) => {
             if (

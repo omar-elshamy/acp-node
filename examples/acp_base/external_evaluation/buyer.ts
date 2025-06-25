@@ -4,7 +4,6 @@ import AcpClient, {
   AcpContractClient,
   AcpJobPhases,
   AcpJob,
-  baseSepoliaAcpConfig,
   AcpAgentSort
 } from "@virtuals-protocol/acp-node";
 import {
@@ -19,8 +18,7 @@ async function buyer() {
         acpContractClient: await AcpContractClient.build(
             WHITELISTED_WALLET_PRIVATE_KEY,
             BUYER_ENTITY_ID,
-            BUYER_AGENT_WALLET_ADDRESS,
-            baseSepoliaAcpConfig
+            BUYER_AGENT_WALLET_ADDRESS
         ),
         onNewTask: async (job: AcpJob) => {
             if (
