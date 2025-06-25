@@ -4,7 +4,7 @@ import AcpClient, {
   AcpContractClient,
   AcpJobPhases,
   AcpJob,
-  baseSepoliaAcpConfig,
+  baseAcpConfig,
   AcpAgentSort
 } from "@virtuals-protocol/acp-node";
 import {
@@ -13,6 +13,7 @@ import {
     BUYER_ENTITY_ID,
     WHITELISTED_WALLET_PRIVATE_KEY
 } from "./env";
+import { base } from "viem/chains";
 
 async function buyer() {
     const acpClient = new AcpClient({
@@ -20,7 +21,7 @@ async function buyer() {
             WHITELISTED_WALLET_PRIVATE_KEY,
             BUYER_ENTITY_ID,
             BUYER_AGENT_WALLET_ADDRESS,
-            baseSepoliaAcpConfig
+            baseAcpConfig
         ),
         onNewTask: async (job: AcpJob) => {
             if (
