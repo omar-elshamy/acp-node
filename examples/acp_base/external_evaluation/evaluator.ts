@@ -1,8 +1,7 @@
-// TODO: Point the imports to acp-node after publishing
 import AcpClient, { 
     AcpContractClient, 
     AcpJob, 
-    baseSepoliaAcpConfig 
+    baseAcpConfig 
   } from '@virtuals-protocol/acp-node';
 import {
     EVALUATOR_AGENT_WALLET_ADDRESS,
@@ -16,7 +15,7 @@ async function evaluator() {
             WHITELISTED_WALLET_PRIVATE_KEY,
             EVALUATOR_ENTITY_ID,
             EVALUATOR_AGENT_WALLET_ADDRESS,
-            baseSepoliaAcpConfig
+            baseAcpConfig
         ),
         onEvaluate: async (job: AcpJob) => {
             console.log("Evaluation function called", job);
