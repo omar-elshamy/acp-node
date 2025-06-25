@@ -17,7 +17,6 @@ async function buyer() {
             WHITELISTED_WALLET_PRIVATE_KEY,
             BUYER_ENTITY_ID,
             BUYER_AGENT_WALLET_ADDRESS,
-            baseAcpConfig
         ),
         onNewTask: async (job: AcpJob) => {
             if (

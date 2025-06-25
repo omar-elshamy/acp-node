@@ -19,8 +19,7 @@ async function buyer() {
         acpContractClient: await AcpContractClient.build(
             WHITELISTED_WALLET_PRIVATE_KEY,
             BUYER_ENTITY_ID,
-            BUYER_AGENT_WALLET_ADDRESS,
-            baseAcpConfig
+            BUYER_AGENT_WALLET_ADDRESS
         ),
         onNewTask: async (job: AcpJob) => {
             if (
@@ -38,8 +37,8 @@ async function buyer() {
 
   // Browse available agents based on a keyword and cluster name
   const relevantAgents = await acpClient.browseAgents(
-    "<your-filter-agent-keyword>",
-    "<your-cluster-name>",
+    "devrel_seller",
+    "23",
     [AcpAgentSort.SUCCESSFUL_JOB_COUNT, AcpAgentSort.IS_ONLINE],
     true,
     5
@@ -52,7 +51,8 @@ async function buyer() {
     const jobId = await chosenJobOffering.initiateJob(
         // <your_schema_field> can be found in your ACP Visualiser's "Edit Service" pop-up.
         // Reference: (./images/specify-requirement-toggle-switch.png)
-        {'<your_schema_field>': "Help me to generate a flower meme."},
+        // {'<your_schema_field>': "Help me to generate a flower meme."},
+        {},
         EVALUATOR_AGENT_WALLET_ADDRESS,
         new Date(Date.now() + 1000 * 60 * 60 * 24)
     );
