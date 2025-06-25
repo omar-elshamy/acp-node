@@ -1,8 +1,7 @@
 import AcpClient, { 
     AcpContractClient, 
     AcpJobPhases, 
-    AcpJob, 
-    baseAcpConfig 
+    AcpJob
   } from '@virtuals-protocol/acp-node';
 import {
     SELLER_AGENT_WALLET_ADDRESS,

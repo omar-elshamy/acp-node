@@ -4,7 +4,6 @@ import AcpClient, {
   AcpContractClient,
   AcpJobPhases,
   AcpJob,
-  baseAcpConfig,
   AcpAgentSort
 } from "@virtuals-protocol/acp-node";
 import {
