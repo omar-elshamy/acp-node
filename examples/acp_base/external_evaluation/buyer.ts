@@ -13,7 +13,6 @@ import {
     BUYER_ENTITY_ID,
     WHITELISTED_WALLET_PRIVATE_KEY
 } from "./env";
-import { base } from "viem/chains";
 
 async function buyer() {
     const acpClient = new AcpClient({

@@ -3,7 +3,7 @@ import AcpClient, {
     AcpContractClient, 
     AcpJobPhases, 
     AcpJob, 
-    baseSepoliaAcpConfig 
+    baseAcpConfig 
   } from '@virtuals-protocol/acp-node';
 import {
     SELLER_AGENT_WALLET_ADDRESS,
@@ -17,7 +17,7 @@ async function seller() {
             WHITELISTED_WALLET_PRIVATE_KEY,
             SELLER_ENTITY_ID,
             SELLER_AGENT_WALLET_ADDRESS,
-            baseSepoliaAcpConfig
+            baseAcpConfig
         ),
         onNewTask: async (job: AcpJob) => {
             if (

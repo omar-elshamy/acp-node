@@ -1,5 +1,3 @@
-// TODO: Point the imports to acp-node after publishing
-
 import AcpClient, { 
     AcpContractClient, 
     AcpJobPhases, 
@@ -13,6 +11,7 @@ import {
 } from "./env";
 
 async function seller() {
+    console.log("Whitelisted wallet private key:", WHITELISTED_WALLET_PRIVATE_KEY);
     new AcpClient({
         acpContractClient: await AcpContractClient.build(
             WHITELISTED_WALLET_PRIVATE_KEY,

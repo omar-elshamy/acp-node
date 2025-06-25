@@ -1,5 +1,3 @@
-// TODO: Point the imports to acp-node after publishing
-
 import AcpClient, {
   AcpContractClient,
   AcpJobPhases,
