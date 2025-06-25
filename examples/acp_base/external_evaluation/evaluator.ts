@@ -1,7 +1,6 @@
 import AcpClient, { 
     AcpContractClient, 
-    AcpJob, 
-    baseAcpConfig 
+    AcpJob
   } from '@virtuals-protocol/acp-node';
 import {
     EVALUATOR_AGENT_WALLET_ADDRESS,
@@ -14,8 +13,7 @@ async function evaluator() {
         acpContractClient: await AcpContractClient.build(
             WHITELISTED_WALLET_PRIVATE_KEY,
             EVALUATOR_ENTITY_ID,
-            EVALUATOR_AGENT_WALLET_ADDRESS,
-            baseAcpConfig
+            EVALUATOR_AGENT_WALLET_ADDRESS
         ),
         onEvaluate: async (job: AcpJob) => {
             console.log("Evaluation function called", job);
