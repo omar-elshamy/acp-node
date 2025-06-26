@@ -12,6 +12,7 @@ import {
   IAcpMemo,
 } from "./interfaces";
 
+
 enum SocketEvents {
   ROOM_JOINED = "roomJoined",
   ON_EVALUATE = "onEvaluate",
@@ -222,6 +223,10 @@ class AcpClient {
     reason?: string
   ) {
     await this.acpContractClient.signMemo(memoId, accept, reason);
+
+    if (!accept) {
+      return;
+    }
 
     return await this.acpContractClient.createMemo(
       jobId,
