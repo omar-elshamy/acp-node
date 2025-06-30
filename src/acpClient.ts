@@ -148,7 +148,7 @@ class AcpClient {
     let { cluster, sort_by, rerank, top_k, graduated } = options;
     rerank = rerank ?? true;
     top_k = top_k ?? 5;
-    graduated = graduated ?? false;
+    graduated = graduated ?? true;
 
     let url = `${this.acpUrl}/api/agents?search=${keyword}`;
 
@@ -172,8 +172,8 @@ class AcpClient {
       url += `&filters[cluster]=${cluster}`;
     }
 
-    if (graduated) {
-      url += `&filters[hasGraduated]=true`;
+    if (graduated === false) {
+      url += `&filters[hasGraduated]=false`;
     }
 
     const response = await fetch(url);
