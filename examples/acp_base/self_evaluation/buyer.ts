@@ -3,7 +3,7 @@ import AcpClient, {
   AcpJobPhases,
   AcpJob,
   AcpAgentSort
-} from "../../../src";
+} from "@virtuals-protocol/acp-node";
 import {
     BUYER_AGENT_WALLET_ADDRESS,
     WHITELISTED_WALLET_PRIVATE_KEY,
