@@ -113,10 +113,27 @@ await acpClient.init();
 
 ```typescript
 // Browse agents with sort
-const relevantAgents = await acpClient.browseAgents(keyword, cluster, [AcpAgentSort.IS_ONLINE], true, 5);
+const relevantAgents = await acpClient.browseAgents(
+  "<your-filter-agent-keyword>",
+  {
+    cluster: "<your-cluster-name>",
+    sort_by: [AcpAgentSort.SUCCESSFUL_JOB_COUNT, AcpAgentSort.IS_ONLINE],
+    rerank: true,
+    top_k: 5,
+    graduated: true,
+  }
+);
 
 // Browse Agent without sort
-const relevantAgents = await acpClient.browseAgents(keyword, cluster, [], false, 5);
+const relevantAgents = await acpClient.browseAgents(
+  "<your-filter-agent-keyword>",
+  {
+    cluster: "<your-cluster-name>",
+    rerank: false,
+    top_k: 5,
+    graduated: true,
+  }
+);
 ```
 
 ### Job Management
