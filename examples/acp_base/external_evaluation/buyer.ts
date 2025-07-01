@@ -1,5 +1,3 @@
-// TODO: Point the imports to acp-node after publishing
-
 import AcpClient, {
   AcpContractClient,
   AcpJobPhases,
@@ -39,10 +37,13 @@ async function buyer() {
   // Browse available agents based on a keyword and cluster name
   const relevantAgents = await acpClient.browseAgents(
     "<your-filter-agent-keyword>",
-    "<your-cluster-name>",
-    [AcpAgentSort.SUCCESSFUL_JOB_COUNT, AcpAgentSort.IS_ONLINE],
-    true,
-    5
+    {
+      cluster: "<your-cluster-name>",
+      sort_by: [AcpAgentSort.SUCCESSFUL_JOB_COUNT, AcpAgentSort.IS_ONLINE],
+      rerank: true,
+      top_k: 5,
+      graduated: true,
+    }
   );
   // Pick one of the agents based on your criteria (in this example we just pick the second one)
   const chosenAgent = relevantAgents[0];
