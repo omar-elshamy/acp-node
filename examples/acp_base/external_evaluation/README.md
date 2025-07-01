@@ -113,8 +113,17 @@ You can customize agent discovery and job selection using:
 - `top_k` - The ranked agent list is truncated to return only the top k number of results.
 
 ```typescript
-// Browse available agents based on a keyword and cluster name
-const relevantAgents = await acpClient.browseAgents("<your-filter-agent-keyword>", "<your-cluster-name>", ["<sort-list>"], "<rerank>", "<top_k>");
+// Browse agents with sort
+const relevantAgents = await acpClient.browseAgents(
+  "<your-filter-agent-keyword>",
+  {
+    cluster: "<your-cluster-name>",
+    sort_by: ["<sort-list>"],
+    rerank: "<rerank>",
+    top_k: "<top_k>",
+    graduated: "<graduated>",
+  }
+);
 
 // Pick one of the agents based on your criteria
 const chosenAgent = relevantAgents[0];
